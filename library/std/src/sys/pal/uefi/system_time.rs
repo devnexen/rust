@@ -142,10 +142,10 @@ pub(crate) const fn to_uefi(dur: &Duration, timezone: i16, daylight: u8) -> Resu
         let delta = ((d - 1) as u64 * MIN_IN_DAY
             + hour as u64 * MIN_IN_HOUR
             + minute as u64
-            + if second == 0 { 0 } else { 1 }) as i16;
-        let new_tz = timezone + delta;
+            + if second == 0 { 0 } else { 1 }) as i32;
+        let new_tz = timezone as i32 + delta;
 
         assert!(new_tz <= 1440 && new_tz >= -1440);
-        Err(new_tz)
+        Err(new_tz as i16)
     }
 }
